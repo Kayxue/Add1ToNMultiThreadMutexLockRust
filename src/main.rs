@@ -1,6 +1,6 @@
-use std::sync::{Mutex,Arc};
-use std::thread;
 use std::env;
+use std::sync::{Arc, Mutex};
+use std::thread;
 use std::thread::JoinHandle;
 
 fn main() {
@@ -10,8 +10,8 @@ fn main() {
     let mut handler: Vec<JoinHandle<()>> = Vec::new();
 
     let sum = Arc::new(Mutex::new(0i128));
-    for i in 1..=x{
-        let locker= Arc::clone(&sum);
+    for i in 1..=x {
+        let locker = Arc::clone(&sum);
         handler.push(thread::spawn(move || {
             println!("Thread {} started", i);
             let startFrom = (i - 1) * (n / x) + 1;
@@ -25,7 +25,7 @@ fn main() {
         }));
     }
 
-    for handle in handler{
+    for handle in handler {
         handle.join().unwrap();
     }
 
